@@ -17,25 +17,26 @@ yr="2015"
 mon="11"
 day="17"
 hr="02"
-
-date=sys.argv[1]
-hr=sys.argv[2]
-
 if  len(sys.argv[1:]) !=2:
     print "Give Date and hour yyyy/mm/dd hh"
+    date=raw_input("Date in format yyyy/mm/dd :")
+    hour=raw_input("Hour:")
+    hr=int(hour)
+else:
+    date=sys.argv[1]
+    hr=int(sys.argv[2])
 
 ymd=date.split("/")
-yr=ymd[0]
-mon=ymd[1]
-day=ymd[2]
-
-print yr,mon,day,hr
+yr=int(ymd[0])
+mon=int(ymd[1])
+day=int(ymd[2])
 
 
 
-tstr=yr+"/"+mon+"/"+day+"/"+hr+".h5"
-filename=yr+"_"+mon+"_"+day+"_"+hr+".h5"
+print("%d/%02d/%02d %02d:00") %(yr,mon,day,hr)
 
+tstr=("%d/%02d/%02d/%02d.h5")  %(yr,mon,day,hr)
+filename=("%d_%02d_%02d_%02d.h5") %(yr,mon,day,hr)
 
 url="http://rfimonitor.kat.ac.za/rfi_data/"+tstr
 urllib.urlretrieve(url,filename)
@@ -91,7 +92,7 @@ pl.text(fpk,pk,"peak "+str(pk))
 pl.text(1200,aver,"average "+str(aver),fontsize=10,color='k', weight='bold')
 pl.legend()
 pl.grid(True)
-figname=yr+"_"+mon+"_"+day+":"+hr+".png"
+figname=("%d_%02d_%02d:%02d.png") %(yr,mon,day,hr)
 pl.savefig(figname)
 pl.show()
 
